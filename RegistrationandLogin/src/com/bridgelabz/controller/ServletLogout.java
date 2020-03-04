@@ -3,7 +3,6 @@ package com.bridgelabz.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,27 +48,16 @@ public class ServletLogout extends HttpServlet{
 		}
 		if(button.equals("delete"))
 		{
-			try {
-				
-				object.deleteData(req, res);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			object.deleteData(req, res);
 		}
 		if(button.equals("admin"))
 		{
 			HttpSession session=req.getSession();
 			ResultSet rs;
-			try {
-				rs = object.dispalyAdmin();
-				session.setAttribute("admin", rs);
-				RequestDispatcher rd=req.getRequestDispatcher("AdminPage.jsp");				
-				rd.include(req, res);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}						
+			rs = object.dispalyAdmin();
+			session.setAttribute("admin", rs);
+			RequestDispatcher rd=req.getRequestDispatcher("AdminPage.jsp");				
+			rd.include(req, res);						
 		}
 	}
 }

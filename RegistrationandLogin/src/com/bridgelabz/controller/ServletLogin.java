@@ -3,7 +3,6 @@ package com.bridgelabz.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,28 +34,23 @@ public class ServletLogin extends  HttpServlet{
 		Model obj = new Model();		
 		obj.setPwd(pwd);
 		obj.setEmail(email);	
-		try {
-			ResultSet rs=object.dispalyData(obj);
-			if(rs!=null)
-			{							
-				HttpSession session=req.getSession();
-				session.setAttribute("data", rs);
-				session.setAttribute("check", email);
-				
-				
-				Cookie cookie= new Cookie("email",email);
-				res.addCookie(cookie);
-				
-				out.println("<html><head></head><body onload=\"alert('Login Successfuld')\"></body></html>");
-				res.sendRedirect("AccountPage.jsp");			
-			}		
-			else
-				out.println("<html><head></head><body onload=\"alert('Login Denied')\"></body></html>");
-				RequestDispatcher rd=req.getRequestDispatcher("RegistrationPage.jsp");				
-				rd.include(req, res);	
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ResultSet rs=object.dispalyData(obj);
+		if(rs!=null)
+		{							
+			HttpSession session=req.getSession();
+			session.setAttribute("data", rs);
+			session.setAttribute("check", email);
+			
+			
+			Cookie cookie= new Cookie("email",email);
+			res.addCookie(cookie);
+			
+			out.println("<html><head></head><body onload=\"alert('Login Successfuld')\"></body></html>");
+			res.sendRedirect("AccountPage.jsp");			
+		}		
+		else
+			out.println("<html><head></head><body onload=\"alert('Login Denied')\"></body></html>");
+			RequestDispatcher rd=req.getRequestDispatcher("RegistrationPage.jsp");				
+			rd.include(req, res);
 	}
 }

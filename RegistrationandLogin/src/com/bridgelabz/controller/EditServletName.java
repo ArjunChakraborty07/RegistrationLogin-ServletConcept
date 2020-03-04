@@ -2,8 +2,6 @@ package com.bridgelabz.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,13 +28,8 @@ public class EditServletName extends HttpServlet {
 		pwd=req.getParameter("name");				
 		req.setAttribute("name",pwd);
 		
-		try {
-			PrintWriter out=res.getWriter();
-			out.println("<script type='text/javascript'> alert('Name Changed') Location='EditData.jsp'	</script>");
-			object.editDataName(req, res);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PrintWriter out=res.getWriter();
+		out.println("<script type='text/javascript'> alert('Name Changed') Location='EditData.jsp'	</script>");
+		object.editDataName(req, res);
 	}
 }

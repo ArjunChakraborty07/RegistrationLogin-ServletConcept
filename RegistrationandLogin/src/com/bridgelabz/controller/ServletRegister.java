@@ -2,7 +2,6 @@ package com.bridgelabz.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import com.bridgelabz.databaseoperations.DatabaseOperations;
 import com.bridgelabz.model.Model;
@@ -38,20 +36,15 @@ public class ServletRegister extends  HttpServlet{
 		obj.setEmail(email);
 		obj.setPwd(pwd);
 		obj.setUname(uname);
-		try {
-			boolean flag= object.updateData(obj);
-			if(flag==true)
-			{
-				HttpSession session=req.getSession();
-				session.setAttribute("username",uname);
-				PrintWriter out=res.getWriter();
-				out.println("<html><head></head><body onload=\"alert('Registration Successful')\"></body></html>");
-				RequestDispatcher rd=req.getRequestDispatcher("RegistrationPage.jsp");
-				rd.include(req, res);
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		boolean flag= object.updateData(obj);
+		if(flag==true)
+		{
+			HttpSession session=req.getSession();
+			session.setAttribute("username",uname);
+			PrintWriter out=res.getWriter();
+			out.println("<html><head></head><body onload=\"alert('Registration Successful')\"></body></html>");
+			RequestDispatcher rd=req.getRequestDispatcher("RegistrationPage.jsp");
+			rd.include(req, res);
 		}
 	}
 }

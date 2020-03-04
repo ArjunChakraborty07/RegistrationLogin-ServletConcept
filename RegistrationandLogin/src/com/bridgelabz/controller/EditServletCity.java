@@ -1,8 +1,6 @@
 package com.bridgelabz.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,12 +27,6 @@ public class EditServletCity extends HttpServlet {
 		pwd=req.getParameter("city");				
 		req.setAttribute("city",pwd);
 		
-		try {
-			object.editDataCity(req, res);
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		object.editDataCity(req, res);
 	}
 }

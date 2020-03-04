@@ -20,8 +20,10 @@ import com.mysql.jdbc.Statement;
 
 public class DatabaseOperations implements Service{
 
-	public void deleteData(HttpServletRequest req, HttpServletResponse res) throws ClassNotFoundException, SQLException, ServletException, IOException
+	public void deleteData(HttpServletRequest req, HttpServletResponse res) 
 	{
+		try {
+	
 		ResultSet rs=null;
 		HttpSession session= req.getSession();
 		rs=(ResultSet) session.getAttribute("data");
@@ -41,9 +43,15 @@ public class DatabaseOperations implements Service{
 		RequestDispatcher rd=req.getRequestDispatcher("RegistrationPage.jsp");
 		rd.include(req, res);
 	}
-	
-	public ResultSet dispalyData(Model obj) throws ClassNotFoundException, SQLException
+	catch(ClassNotFoundException | SQLException | IOException | ServletException e)
 	{
+	}
+	}
+	
+	public ResultSet dispalyData(Model obj) 
+	{
+		try
+		{
 		String Driver="com.mysql.jdbc.Driver";
 		String URL="jdbc:mysql://localhost:3306/Registration";
 		Class.forName(Driver);
@@ -59,11 +67,16 @@ public class DatabaseOperations implements Service{
 			}	
 		}
 		return null;
+		}
+		catch(ClassNotFoundException | SQLException e)
+		{
+			return null;
+		}
 	}
 	
-	public void editDataPassword(HttpServletRequest req, HttpServletResponse res)
-			throws ClassNotFoundException, SQLException, ServletException, IOException {
+	public void editDataPassword(HttpServletRequest req, HttpServletResponse res){
 
+		try {
 		HttpSession session = req.getSession();
 		ResultSet rs = (ResultSet) session.getAttribute("data");
 		System.out.println("check");
@@ -105,11 +118,17 @@ public class DatabaseOperations implements Service{
 		RequestDispatcher rd = req.getRequestDispatcher("EditData.jsp");
 		rd.include(req, res);
 		// Dispatching to the next required page
+		}
+		catch( ClassNotFoundException | SQLException | ServletException | IOException e)
+		{
+			
+		}
 	}
 	
 	public void editDataName(HttpServletRequest req, HttpServletResponse res)
-			throws ClassNotFoundException, SQLException, ServletException, IOException {
-
+	{
+		try
+		{
 		HttpSession session = req.getSession();
 		ResultSet rs = (ResultSet) session.getAttribute("data");
 		String email = rs.getString(3);
@@ -149,11 +168,16 @@ public class DatabaseOperations implements Service{
 		RequestDispatcher rd = req.getRequestDispatcher("EditData.jsp");
 		rd.include(req, res);
 		// Dispatching to the next required page
+		}
+		catch(ClassNotFoundException | SQLException | ServletException | IOException e)
+		{
+			
+		}
 	}
 	
 	public void editDataCity(HttpServletRequest req, HttpServletResponse res)
-			throws ClassNotFoundException, SQLException, ServletException, IOException {
-
+	{
+		try {
 		HttpSession session = req.getSession();
 		ResultSet rs = (ResultSet) session.getAttribute("data");
 		String email = rs.getString(3);
@@ -193,11 +217,16 @@ public class DatabaseOperations implements Service{
 		RequestDispatcher rd = req.getRequestDispatcher("EditData.jsp");
 		rd.include(req, res);
 		// Dispatching to the next required page
+		}
+		catch( ClassNotFoundException | SQLException | ServletException | IOException e)
+		{
+			
+		}
 	}
 	
 	public void editDataphone(HttpServletRequest req, HttpServletResponse res)
-			throws ClassNotFoundException, SQLException, ServletException, IOException {
-
+	{
+		try {
 		HttpSession session = req.getSession();
 		ResultSet rs = (ResultSet) session.getAttribute("data");
 		String email = rs.getString(3);
@@ -237,11 +266,16 @@ public class DatabaseOperations implements Service{
 		RequestDispatcher rd = req.getRequestDispatcher("EditData.jsp");
 		rd.include(req, res);
 		// Dispatching to the next required page
+		}
+		catch(ClassNotFoundException | SQLException | ServletException | IOException e)
+		{
+			
+		}
 	}
 	
-	public boolean updateData(Model obj) throws ClassNotFoundException, SQLException
+	public boolean updateData(Model obj) 
 	{
-		
+		try {
 		int ctr=0;
 		String Driver="com.mysql.jdbc.Driver";
 		String URL="jdbc:mysql://localhost:3306/Registration";
@@ -267,10 +301,16 @@ public class DatabaseOperations implements Service{
 			return true;
 		}
 		return false;
+		}
+		catch(ClassNotFoundException | SQLException e)
+		{
+			return false;
+		}
 	}
 	
-	public ResultSet dispalyAdmin() throws ClassNotFoundException, SQLException
+	public ResultSet dispalyAdmin() 
 	{
+		try {
 		String Driver="com.mysql.jdbc.Driver";
 		String URL="jdbc:mysql://localhost:3306/Registration";
 		Class.forName(Driver);
@@ -278,5 +318,10 @@ public class DatabaseOperations implements Service{
 		Statement st=(Statement) conn.createStatement();
 		ResultSet rs=st.executeQuery("select * from registration");
 		return rs;
+		}
+		catch( ClassNotFoundException | SQLException e)
+		{
+			return null;
+		}
 	}
 }
